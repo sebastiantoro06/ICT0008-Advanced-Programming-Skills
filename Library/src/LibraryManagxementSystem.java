@@ -5,15 +5,14 @@ public class LibraryManagxementSystem {
     public static void main(String[] args) {
         // Initialize 5 sample books
         Book[] books = new Book[5];
-        books[0] = new Book("The Great Gatsby", "F. Scott Fitzgerald", "9780743273565", LocalDate.of(2023, 1, 15));
-        books[1] = new HardcopyBook("To Kill a Mockingbird", "Harper Lee", "9780061120084", LocalDate.of(2023, 2, 20), "A12-3");
-        books[2] = new EBook("1984", "George Orwell", "9780451524935", LocalDate.of(2023, 3, 10), LocalDate.of(2024, 12, 31));
-        books[3] = new Book("Pride and Prejudice", "Jane Austen", "9780141439518", LocalDate.of(2023, 4, 5));
-        books[4] = new HardcopyBook("The Hobbit", "J.R.R. Tolkien", "9780547928227", LocalDate.of(2023, 5, 12), "B7-2");
-
+        books[0] = new Book("Clean Code", "Robert C. Martin", "9780132350884", LocalDate.of(2023, 6, 18));
+        books[1] = new HardcopyBook("Design Patterns", "Erich Gamma", "9780201633610", LocalDate.of(2023, 7, 22), "C5-9");
+        books[2] = new EBook("The Pragmatic Programmer", "Andrew Hunt", "9780132119177", LocalDate.of(2023, 8, 30), LocalDate.of(2025, 6, 15));
+        books[3] = new Book("Effective Java", "Joshua Bloch", "9780134685991", LocalDate.of(2023, 9, 10));
+        books[4] = new HardcopyBook("Head First Java", "Kathy Sierra", "9780596009205", LocalDate.of(2023, 10, 5), "D3-1");
         Scanner scanner = new Scanner(System.in);
         String inputISBN;
-
+// Show Available books
         while (true) {
            System.out.println("Available Books:");
             for (Book book : books) {
