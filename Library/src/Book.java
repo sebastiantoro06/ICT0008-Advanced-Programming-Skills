@@ -1,4 +1,6 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 
 //Create book Object
 public class Book implements IBookOperations {
@@ -12,7 +14,7 @@ public class Book implements IBookOperations {
         this.available = true;
     }
 
-    // CORREGIR: Constructor con parámetros debe asignar valores
+
     public Book(String title, String author, String ISBN, LocalDate dateAdded) {
         this.title = title;
         this.author = author;
@@ -34,6 +36,11 @@ public class Book implements IBookOperations {
         this.ISBN = ISBN;
         this.dateAdded = dateAdded;
         this.available = true;
+    }
+
+    public void setBookDetails(String title, String author, String ISBN, String dateStr) {
+        LocalDate date = LocalDate.parse(dateStr);
+        setBookDetails(title, author, ISBN, date);
     }
 
     // Display book details
@@ -66,7 +73,7 @@ public class Book implements IBookOperations {
         return available;
     }
 
-    public static void sortBooks(Book[] books) {
+    public static void sortBooksByISBN(Book[] books) {
         for (int i = 0; i < books.length - 1; i++) {
             for (int j = i + 1; j < books.length; j++) {
                 if (books[i].getISBN().compareTo(books[j].getISBN()) > 0) {
@@ -76,5 +83,8 @@ public class Book implements IBookOperations {
                 }
             }
         }
+    }
+    public String getTitle() {
+        return this.title;
     }
 }

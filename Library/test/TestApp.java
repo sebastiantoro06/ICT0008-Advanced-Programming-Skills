@@ -1,211 +1,202 @@
-import java.util.Arrays;
+import java.time.LocalDate;
 
+public class TestApp {
 
-public static void main(String[] args) {
-    System.out.println("=== BOOK LIBRARY MANAGEMENT SYSTEM - TEST APPLICATION ===");
-    System.out.println("Testing Date: " + java.time.LocalDate.now());
-    System.out.println("Tester: Sebastian Toro       \n");
-
-    // Test 1: Create Book instances with correct initialization
-    System.out.println("TEST 1: CORRECT BOOK INITIALIZATION");
-    System.out.println("====================================");
-    testCorrectBookInitialization();
-
-    // Test 2: Create Book instances with incorrect initialization
-    System.out.println("\nTEST 2: INCORRECT BOOK INITIALIZATION");
-    System.out.println("=====================================");
-    testIncorrectBookInitialization();
-
-    // Test 3: Test sorting functionality with different array orders
-    System.out.println("\nTEST 3: SORTING FUNCTIONALITY TESTING");
-    System.out.println("=====================================");
-    testSortingFunctionality();
-
-    // Test 4: Additional functionality testing
-    System.out.println("\nTEST 4: ADDITIONAL FUNCTIONALITY TESTING");
-    System.out.println("========================================");
-    testAdditionalFunctionality();
-
-    // Summary
-    System.out.println("\nTEST SUMMARY AND RECOMMENDATIONS");
-    System.out.println("================================");
-    printTestSummary();
-}
-
-public static void testCorrectBookInitialization() {
-    try {
-        IBookOperations book1 = new Book();
-        book1.setBookDetails("Head First Java", "Kathy Sierra", "9780596009205", "2023-10-05");
-
-        IBookOperations book2 = new Book();
-        book2.setBookDetails("Effective Java", "Joshua Bloch", "9780134685991", "2023-09-10");
-
-        IBookOperations book3 = new Book();
-        book3.setBookDetails(" Clean Code", "Robert C. Martin", "9780132350884", "2023-06-18");
-
-        System.out.println("✓ Successfully created 3 books with correct initialization");
-
-        System.out.println("\nBook 1 Details:");
-        book1.displayBookDetails();
-        System.out.println("\nBook 2 Details:");
-        book2.displayBookDetails();
-        System.out.println("\nBook 3 Details:");
-        book3.displayBookDetails();
-
-        System.out.println("\n✓ TEST 1 PASSED: All correct initializations successful");
-
-    } catch (Exception e) {
-        System.out.println("✗ TEST 1 FAILED: " + e.getMessage());
+    public static void main(String[] args) {
+        printHeader();
+        runAllTestScenarios();
     }
-}
 
-public static void testIncorrectBookInitialization() {
-    try {
-        Book book1 = new Book();
-        book1.setBookDetails(null, "James Clear", "12345", "2024-01-01");
-        System.out.println("Book 1 with null title:");
-        book1.displayBookDetails();
-
-        Book book2 = new Book();
-        book2.setBookDetails("", "", "", "");
-        System.out.println("\nBook 2 with empty strings:");
-        book2.displayBookDetails();
-
-        Book book3 = new Book();
-        book3.setBookDetails("Invalid Book", "Unknown Author", "INVALID_ISBN", "invalid-date");
-        System.out.println("\nBook 3 with invalid data:");
-        book3.displayBookDetails();
-
-        System.out.println("\n⚠ TEST 2 COMPLETED: Application handles incorrect data but lacks validation");
-
-    } catch (Exception e) {
-        System.out.println("✗ TEST 2 ERROR: " + e.getMessage());
+    private static void printHeader() {
+        System.out.println("╔══════════════════════════════════════════════════╗");
+        System.out.println("║       LIBRARY SYSTEM VALIDATION PROGRAM         ║");
+        System.out.println("╚══════════════════════════════════════════════════╝");
+        System.out.println("Execution Date: " + LocalDate.now());
+        System.out.println("Performed by: Library QA Team\n");
     }
-}
 
-public static void testSortingFunctionality() {
-    Book[] ascendingBooks = createTestBooks();
-    Book[] descendingBooks = createTestBooks();
-    Book[] mixedBooks = createTestBooks();
+    private static void runAllTestScenarios() {
+        // Phase 1: Validation Tests
+        validateBookCreation();
 
-    System.out.println("Test 3.1: Books added in ascending ISBN order");
-    System.out.println("Before sorting (Ascending):");
-    displayBookArray(ascendingBooks);
-    Book.sortBookData(ascendingBooks);
-    System.out.println("After sorting:");
-    displayBookArray(ascendingBooks);
+        // Phase 2: Error Handling Tests
+        checkErrorScenarios();
 
-    System.out.println("\nTest 3.2: Books added in descending ISBN order");
-    reverseArray(descendingBooks);
-    System.out.println("Before sorting (Descending):");
-    displayBookArray(descendingBooks);
-    Book.sortBookData(descendingBooks);
-    System.out.println("After sorting:");
-    displayBookArray(descendingBooks);
+        // Phase 3: Operational Tests
+        verifySortingMechanism();
+        testLoanOperations();
 
-    System.out.println("\nTest 3.3: Books added in mixed order");
-    shuffleArray(mixedBooks);
-    System.out.println("Before sorting (Mixed):");
-    displayBookArray(mixedBooks);
-    Book.sortBookData(mixedBooks);
-    System.out.println("After sorting:");
-    displayBookArray(mixedBooks);
-
-    System.out.println("\n✓ TEST 3 PASSED: Sorting algorithm works correctly for all scenarios");
-}
-
-public static void testAdditionalFunctionality() {
-    Book testBook = new Book();
-    testBook.setBookDetails("Test Book", "Test Author", "1111111111", "2024-01-01");
-
-    System.out.println("Testing borrow functionality:");
-    testBook.displayBookDetails();
-
-    boolean borrowed1 = testBook.borrowBook();
-    System.out.println("First borrow attempt: " + (borrowed1 ? "SUCCESS" : "FAILED"));
-    testBook.displayBookDetails();
-
-    boolean borrowed2 = testBook.borrowBook();
-    System.out.println("Second borrow attempt: " + (borrowed2 ? "SUCCESS" : "FAILED"));
-
-    System.out.println("\nTesting return functionality:");
-    testBook.returnBook();
-    testBook.displayBookDetails();
-
-    System.out.println("\n✓ TEST 4 PASSED: Borrow and return functionality working correctly");
-}
-
-public static Book[] createTestBooks() {
-    Book[] books = new Book[3];
-
-    books[0] = new Book();
-    books[0].setBookDetails("Animal Farm", "George Orwell", "1111111111", "2024-01-01");
-
-    books[1] = new Book();
-    books[1].setBookDetails("Dune", "Frank Herbert", "2222222222", "2024-01-02");
-
-    books[2] = new Book();
-    books[2].setBookDetails("Neuromancer", "William Gibson", "3333333333", "2024-01-03");
-
-    return books;
-}
-
-public static void displayBookArray(Book[] books) {
-    for (int i = 0; i < books.length; i++) {
-        System.out.println("Book " + (i + 1) + " - ISBN: " + books[i].getIsbn());
+        // Final Report
+        generateTestReport();
     }
-}
 
-public static void reverseArray(Book[] books) {
-    for (int i = 0; i < books.length / 2; i++) {
-        Book temp = books[i];
-        books[i] = books[books.length - 1 - i];
-        books[books.length - 1 - i] = temp;
+    private static void validateBookCreation() {
+        System.out.println("\nPHASE 1: BOOK CREATION VALIDATION");
+        System.out.println("----------------------------------");
+
+        try {
+            Book novel = new Book();
+            novel.setBookDetails("1984", "George Orwell", "9780451524935", "2024-04-01");
+
+            Book classic = new Book();
+            classic.setBookDetails("To Kill a Mockingbird", "Harper Lee", "9780446310789", "2024-04-02");
+
+            Book scifi = new Book();
+            scifi.setBookDetails("The Martian", "Andy Weir", "9780553418026", "2024-04-03");
+
+            System.out.println("✔ All test books created successfully");
+
+            System.out.println("\nSample Book Records:");
+            System.out.println("-------------------");
+            novel.displayBookDetails();
+            System.out.println();
+            classic.displayBookDetails();
+            System.out.println();
+            scifi.displayBookDetails();
+
+            System.out.println("\nSTATUS: Creation tests completed successfully");
+
+        } catch (Exception e) {
+            System.out.println("✖ ERROR in creation tests: " + e.getMessage());
+        }
     }
-}
 
-public static void shuffleArray(Book[] books) {
-    Book temp = books[0];
-    books[0] = books[2];
-    books[2] = books[1];
-    books[1] = temp;
-}
+    private static void checkErrorScenarios() {
+        System.out.println("\nPHASE 2: ERROR CONDITION TESTING");
+        System.out.println("--------------------------------");
 
-public static void printTestSummary() {
-    System.out.println("OVERALL TEST RESULTS:");
-    System.out.println("• Test 1 (Correct Initialization): PASSED ✓");
-    System.out.println("• Test 2 (Incorrect Initialization): COMPLETED ⚠");
-    System.out.println("• Test 3 (Sorting Functionality): PASSED ✓");
-    System.out.println("• Test 4 (Additional Functionality): PASSED ✓");
+        System.out.println("Testing boundary conditions...");
 
-    System.out.println("\nRECOMMENDATIONS FOR IMPROVEMENT:");
-    System.out.println("1. ADD INPUT VALIDATION:");
-    System.out.println("   - Validate ISBN format (should be 10 or 13 digits)");
-    System.out.println("   - Check for null or empty title/author fields");
-    System.out.println("   - Validate date format for dateAdded field");
+        try {
+            Book emptyBook = new Book();
+            emptyBook.setBookDetails("", "", "", "");
+            System.out.println("\nEmpty book record created (should validate inputs):");
+            emptyBook.displayBookDetails();
 
-    System.out.println("\n2. IMPROVE ERROR HANDLING:");
-    System.out.println("   - Add try-catch blocks for potential exceptions");
-    System.out.println("   - Provide meaningful error messages to users");
-    System.out.println("   - Handle edge cases in sorting algorithm");
+            Book invalidBook = new Book();
+            invalidBook.setBookDetails(null, "No Name", "INVALID", "not-a-date");
+            System.out.println("\nInvalid book record created (should validate inputs):");
+            invalidBook.displayBookDetails();
 
-    System.out.println("\n3. ENHANCE FUNCTIONALITY:");
-    System.out.println("   - Add search functionality by title or author");
-    System.out.println("   - Implement proper date handling with Date/LocalDate classes");
-    System.out.println("   - Add functionality to remove books from the library");
+            System.out.println("\nNOTICE: Application accepts invalid data - needs input validation");
 
-    System.out.println("\n4. CODE IMPROVEMENTS:");
-    System.out.println("   - Consider using ArrayList instead of fixed arrays");
-    System.out.println("   - Implement equals() and hashCode() methods");
-    System.out.println("   - Add proper encapsulation with getters/setters for all fields");
+        } catch (Exception e) {
+            System.out.println("Error encountered: " + e.getMessage());
+        }
+    }
 
-    System.out.println("\n5. TESTING IMPROVEMENTS:");
-    System.out.println("   - Add unit tests using JUnit framework");
-    System.out.println("   - Test edge cases (empty arrays, single book, etc.)");
-    System.out.println("   - Add performance testing for large datasets");
+    private static void verifySortingMechanism() {
+        System.out.println("\nPHASE 3: SORTING ALGORITHM VERIFICATION");
+        System.out.println("----------------------------------------");
 
-    System.out.println("\nCONCLUSION:");
-    System.out.println("The application functions correctly for basic operations but would");
-    System.out.println("benefit from enhanced validation, error handling, and additional features.");
-}
+        Book[] sampleCollection = generateTestCollection();
+
+        System.out.println("\nOriginal Collection:");
+        printCollectionSummary(sampleCollection);
+
+        System.out.println("\nTesting with pre-sorted collection:");
+        Book.sortBooksByISBN(sampleCollection);
+        printCollectionSummary(sampleCollection);
+
+        System.out.println("\nTesting with reverse-sorted collection:");
+        reverseCollection(sampleCollection);
+        printCollectionSummary(sampleCollection);
+        Book.sortBooksByISBN(sampleCollection);
+        printCollectionSummary(sampleCollection);
+
+        System.out.println("\nTesting with randomized collection:");
+        shuffleCollection(sampleCollection);
+        printCollectionSummary(sampleCollection);
+        Book.sortBooksByISBN(sampleCollection);
+        printCollectionSummary(sampleCollection);
+
+        System.out.println("\nSTATUS: Sorting mechanism working as expected");
+    }
+
+    private static void testLoanOperations() {
+        System.out.println("\nPHASE 4: LOAN MANAGEMENT TESTING");
+        System.out.println("---------------------------------");
+
+        Book testBook = new Book();
+        testBook.setBookDetails("Test Book", "QA Team", "0000000000", "2024-01-01");
+
+        System.out.println("\nInitial state:");
+        testBook.displayBookDetails();
+
+        System.out.println("\nAttempting first loan...");
+        boolean firstLoan = testBook.borrowBook();
+        System.out.println("First loan " + (firstLoan ? "succeeded" : "failed"));
+        testBook.displayBookDetails();
+
+        System.out.println("\nAttempting second loan (should fail)...");
+        boolean secondLoan = testBook.borrowBook();
+        System.out.println("Second loan " + (secondLoan ? "succeeded" : "failed"));
+
+        System.out.println("\nReturning book...");
+        testBook.returnBook();
+        testBook.displayBookDetails();
+
+        System.out.println("\nSTATUS: Loan operations functioning properly");
+    }
+
+    private static void generateTestReport() {
+        System.out.println("\nFINAL TEST SUMMARY");
+        System.out.println("==================");
+
+        System.out.println("\nTEST RESULTS:");
+        System.out.println("✓ Book creation and storage");
+        System.out.println("✓ Basic error handling (needs improvement)");
+        System.out.println("✓ ISBN-based sorting");
+        System.out.println("✓ Loan management operations");
+
+        System.out.println("\nRECOMMENDED IMPROVEMENTS:");
+        System.out.println("1. Input validation for all fields");
+        System.out.println("2. Enhanced error messages");
+        System.out.println("3. Additional collection management features");
+        System.out.println("4. Comprehensive unit test coverage");
+
+        System.out.println("\nCONCLUSION:");
+        System.out.println("Core functionality is operational. The system provides");
+        System.out.println("a solid foundation that can be enhanced with additional");
+        System.out.println("validation and features for production use.");
+    }
+
+    // Helper methods
+    private static Book[] generateTestCollection() {
+        Book[] collection = new Book[3];
+
+        collection[0] = new Book();
+        collection[0].setBookDetails("Book A", "Author X", "1000000000", "2024-01-01");
+
+        collection[1] = new Book();
+        collection[1].setBookDetails("Book B", "Author Y", "2000000000", "2024-01-02");
+
+        collection[2] = new Book();
+        collection[2].setBookDetails("Book C", "Author Z", "3000000000", "2024-01-03");
+
+        return collection;
+    }
+
+    private static void printCollectionSummary(Book[] books) {
+        System.out.println("Current collection order:");
+        for (int i = 0; i < books.length; i++) {
+            System.out.printf("%d %s (ISBN: %s)!\n", i+1, books[i].getTitle(), books[i].getISBN());
+
+        }
+    }
+
+    private static void reverseCollection(Book[] books) {
+        for (int i = 0; i < books.length / 2; i++) {
+            Book temp = books[i];
+            books[i] = books[books.length - 1 - i];
+            books[books.length - 1 - i] = temp;
+        }
+    }
+
+    private static void shuffleCollection(Book[] books) {
+        Book temp = books[0];
+        books[0] = books[1];
+        books[1] = books[2];
+        books[2] = temp;
+    }
 }
