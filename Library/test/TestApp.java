@@ -12,7 +12,7 @@ public class TestApp {
         System.out.println("║       LIBRARY SYSTEM VALIDATION PROGRAM         ║");
         System.out.println("╚══════════════════════════════════════════════════╝");
         System.out.println("Execution Date: " + LocalDate.now());
-        System.out.println("Performed by: Library QA Team\n");
+        System.out.println("Performed by: Sebastian Toro\n");
     }
 
     private static void runAllTestScenarios() {
